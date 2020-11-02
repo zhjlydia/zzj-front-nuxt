@@ -1,0 +1,29 @@
+{
+  "name": "blog-nuxt",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate"
+  },
+  "dependencies": {
+    "@nuxt/typescript-runtime": "^2.0.0",
+    "core-js": "^3.6.5",
+    "element-ui": "^2.13.2",
+    "nuxt": "^2.14.6",
+    "@nuxtjs/axios":"^5.12.2",
+    "@nuxtjs/proxy":"^2.0.1",
+    "vue-class-component":"^7.2.6",
+    "vue-property-decorator":"^9.0.2",
+    "vuex-class":"^0.3.2",
+    "dayjs":"^1.9.4"
+  },
+  "devDependencies": {
+    "@nuxt/types": "^2.14.6",
+    "@nuxt/typescript-build": "^2.0.3",
+    "less":"^3.12.2",
+    "less-loader":"^7.0.2"
+  }
+}
