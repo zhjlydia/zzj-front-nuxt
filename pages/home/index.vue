@@ -21,7 +21,12 @@
     </div>
     <p class="module-title">Recent Articles</p>
     <div class="article">
+      <articles
+        :items="articles"
+        @detail="detail"
+      ></articles>
     </div>
+    <footer-bar />
   </div>
 </template>
 <script lang="ts">
@@ -29,10 +34,37 @@
 
 import {Component, Vue} from 'vue-property-decorator'
 import {namespace, State, Action} from 'vuex-class'
+import {ActionMethod} from 'vuex'
+const home = namespace('modules/home')
+import Article from '@/model/article'
+import articles from './components/articles.vue'
+import footerBar from '@/layouts/components/footerBar/index.vue'
 
-
-@Component
+@Component({
+  components: {articles, footerBar},
+  async asyncData ({app,store}) {
+    return store.dispatch('modules/home/fetchList')
+  }})
 export default class Home extends Vue {
+  @home.State
+  articles: Article[]
+
+  @home.Action
+  fetchList: ActionMethod
+
+  // mounted() {
+  //   console.log(this.$store)
+  //   this.fetchList()
+  // }
+
+  enter() {
+    this.$router.push({
+      name: 'Article'
+    })
+  }
+  detail(id: number) {
+    this.$router.push({name: 'ArticleDetail', params: {id: String(id)}})
+  }
 }
 </script>
 
