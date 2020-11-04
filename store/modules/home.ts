@@ -3,7 +3,6 @@ import {ActionTree, GetterTree, MutationTree} from 'vuex'
 import Article from '@/model/article'
 import {PaginationData} from '@/model/common'
 import {State as Root} from '..'
-import http from '@/apis'
 
 export interface State {
   articles: Article[]
