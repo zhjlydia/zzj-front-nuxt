@@ -23,11 +23,11 @@ export const mutations: MutationTree<State> = {
 export const actions: ActionTree<State, Root> = {
   async fetchList({state, commit}) {
     const that:any=this;
-    console.log(that.$axios)
     try {
-      const res: PaginationData<Article.RawData> = that.$axios.get('article/all', {
+      const res: PaginationData<Article.RawData> = await that.$axios.get('article/all', {
         params: {index: 1, size: 3}
       })
+      console.log(res)
       let articles: Article[] = res.list
         ? res.list.map((item: Article.RawData) => {
             return new Article(item)
