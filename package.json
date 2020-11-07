@@ -18,12 +18,14 @@
     "vue-class-component":"^7.2.6",
     "vue-property-decorator":"^9.0.2",
     "vuex-class":"^0.3.2",
-    "dayjs":"^1.9.4"
+    "dayjs":"^1.9.4",
+    "highlight.js": "^10.1.1"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",
     "@nuxt/typescript-build": "^2.0.3",
     "less":"^3.12.2",
-    "less-loader":"^7.0.2"
+    "less-loader":"^7.0.2",
+    "eslint"
   }
 }

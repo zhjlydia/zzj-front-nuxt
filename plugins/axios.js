@@ -1,6 +1,6 @@
 export default function ({ app: { $axios }})  {
     // 数据访问前缀
-    $axios.defaults.baseURL = 'http://127.0.0.1:3000/api/';
+    $axios.defaults.baseURL = 'http://localhost:3000/api/';
 
     $axios.interceptors.request.use(config => {
     return config

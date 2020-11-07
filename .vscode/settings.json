@@ -1,0 +1,26 @@
+{
+  "files.encoding": "utf8",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "git.autoRepositoryDetection": false,
+  "editor.defaultFormatter": "svipas.prettier-plus",
+  "editor.wordWrap": "on",
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "javascript.format.enable": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue"
+  ],
+  "prettier.eslintIntegration": true,
+  "prettier.requireConfig": true,
+  "vetur.format.enable": false
+}

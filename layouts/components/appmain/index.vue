@@ -6,7 +6,7 @@
       name="main"
       mode="out-in"
     >
-      <router-view />
+      <Nuxt />
     </transition>
   </div>
 </template>

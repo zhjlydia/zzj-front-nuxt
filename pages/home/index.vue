@@ -52,18 +52,13 @@ export default class Home extends Vue {
   @home.Action
   fetchList: ActionMethod
 
-  // mounted() {
-  //   console.log(this.$store)
-  //   this.fetchList()
-  // }
-
   enter() {
     this.$router.push({
-      name: 'Article'
+      name: 'article-list'
     })
   }
   detail(id: number) {
-    this.$router.push({name: 'ArticleDetail', params: {id: String(id)}})
+    this.$router.push({name: 'article-id', params: {id: String(id)}})
   }
 }
 </script>

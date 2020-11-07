@@ -93,7 +93,7 @@ export default class ListItem extends Vue {
     .item-main {
       padding: 20px;
       border: 1px solid #eee;
-      width: 300px;
+      width: 90%;
       background: #fff;
       margin: -80px auto 0 auto;
       border-radius: 10px;

@@ -3,7 +3,6 @@ import {ActionTree, GetterTree, MutationTree} from 'vuex'
 import Article from '@/model/article'
 import {PaginationData} from '@/model/common'
 import {State as Root} from '..'
-import http from '@/apis'
 import Category from '@/model/category'
 
 export interface State {
@@ -41,7 +40,9 @@ export const getters: GetterTree<State, Root> = {
 
 export const mutations: MutationTree<State> = {
   M_SET_ID(state: State, id: number) {
+    console.log('M_SET_ID',id)
     state.id = id
+    
   },
   M_SET_ARTICLES(state: State, articles: Article[]) {
     state.articles = articles
@@ -82,7 +83,7 @@ export const actions: ActionTree<State, Root> = {
       if (state.currentCategory > 0) {
         params = Object.assign(params, {category: state.currentCategory})
       }
-      const res: PaginationData<Article.RawData> = await http.get('article/all', {
+      const res: PaginationData<Article.RawData> = await (this as any).$axios.get('article/all', {
         params
       })
       let articles: Article[] = res.list
@@ -104,7 +105,7 @@ export const actions: ActionTree<State, Root> = {
     if (!state.id) {
       return
     }
-    const res: Article.RawData = await http.get(`article/${state.id}`)
+    const res: Article.RawData = await (this as any).$axios.get(`article/${state.id}`)
     let articleDetail: Article = new Article(res)
     commit('M_SET_ARTICLE_DETAIL', articleDetail)
     dispatch('log')
@@ -114,7 +115,7 @@ export const actions: ActionTree<State, Root> = {
   },
   async fetchCategory({commit}) {
     const defaultCategory: Category[] = [{id: -1, title: '全部'}]
-    const res: Category.RawData[] = await http.get('category/all',{ params: {module:'article'} })
+    const res: Category.RawData[] = await (this as any).$axios.get('category/all',{ params: {module:'article'} })
     let categories: Category[] = res
       ? defaultCategory.concat(
           res.map((item: Category.RawData) => {
@@ -128,6 +129,6 @@ export const actions: ActionTree<State, Root> = {
     if (!state.id) {
       return
     }
-    await http.post(`log`,{targetId:state.id,module:'article'})
+    await (this as any).$axios.post(`log`,{targetId:state.id,module:'article'})
   }
 }

@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "svipas.prettier-plus",
+    "dbaeumer.vscode-eslint",
+    "octref.vetur"
+  ]
+}
