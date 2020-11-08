@@ -13,19 +13,27 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
     "nuxt": "^2.14.6",
-    "@nuxtjs/axios":"^5.12.2",
-    "@nuxtjs/proxy":"^2.0.1",
-    "vue-class-component":"^7.2.6",
-    "vue-property-decorator":"^9.0.2",
-    "vuex-class":"^0.3.2",
-    "dayjs":"^1.9.4",
+    "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/proxy": "^2.0.1",
+    "vue-class-component": "^7.2.6",
+    "vue-property-decorator": "^9.0.2",
+    "vuex-class": "^0.3.2",
+    "dayjs": "^1.9.4",
     "highlight.js": "^10.1.1"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",
     "@nuxt/typescript-build": "^2.0.3",
-    "less":"^3.12.2",
-    "less-loader":"^7.0.2",
-    "eslint"
+    "@nuxtjs/eslint-config": "^3.1.0",
+    "@nuxtjs/eslint-config-typescript": "^3.0.0",
+    "@nuxtjs/eslint-module": "^2.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-nuxt": "^1.0.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2",
+    "less": "^3.12.2",
+    "less-loader": "^7.0.2"
   }
 }

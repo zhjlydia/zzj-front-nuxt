@@ -1,5 +1,3 @@
-<!-- @format -->
-
 <template>
   <div class="home">
     <div class="banner">
@@ -12,39 +10,35 @@
           />
           <div class="name">周周酱</div>
         </div>
-        <p class="tip">Life isn`t about how to live through the storm, but how to dance in the rain.</p>
-        <div
-          class="enter"
-          @click="enter"
-        >Discover More</div>
+        <p class="tip">
+          Life isn`t about how to live through the storm, but how to dance in
+          the rain.
+        </p>
+        <div class="enter" @click="enter">Discover More</div>
       </div>
     </div>
     <p class="module-title">Recent Articles</p>
     <div class="article">
-      <articles
-        :items="articles"
-        @detail="detail"
-      ></articles>
+      <articles :items="articles" @detail="detail"></articles>
     </div>
     <footer-bar />
   </div>
 </template>
 <script lang="ts">
-/** @format */
-
-import {Component, Vue} from 'vue-property-decorator'
-import {namespace, State, Action} from 'vuex-class'
-import {ActionMethod} from 'vuex'
-const home = namespace('modules/home')
+import { Component, Vue } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
+import { ActionMethod } from 'vuex'
 import Article from '@/model/article'
-import articles from './components/articles.vue'
 import footerBar from '@/layouts/components/footerBar/index.vue'
+import articles from './components/articles.vue'
+const home = namespace('modules/home')
 
 @Component({
-  components: {articles, footerBar},
-  async asyncData ({app,store}) {
+  components: { articles, footerBar },
+  asyncData({ store }) {
     return store.dispatch('modules/home/fetchList')
-  }})
+  },
+})
 export default class Home extends Vue {
   @home.State
   articles: Article[]
@@ -54,17 +48,17 @@ export default class Home extends Vue {
 
   enter() {
     this.$router.push({
-      name: 'article-list'
+      name: 'article-list',
     })
   }
+
   detail(id: number) {
-    this.$router.push({name: 'article-id', params: {id: String(id)}})
+    this.$router.push({ name: 'article-id', params: { id: String(id) } })
   }
 }
 </script>
 
 <style lang="less" scoped>
-/** @format */
 .home {
   width: 100%;
   overflow: hidden;

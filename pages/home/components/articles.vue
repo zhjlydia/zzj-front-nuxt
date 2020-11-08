@@ -1,11 +1,9 @@
-<!-- @format -->
-
 <template>
   <div class="home-article clearfix">
     <div
-      class="home-article-item-wrap"
       v-for="(item, index) in items"
       :key="index"
+      class="home-article-item-wrap"
       @click="detail(item.id)"
     >
       <div class="home-article-item">
@@ -23,28 +21,25 @@
             v-for="(item, index) in item.tags"
             :key="index"
             :color="getColor(index)"
-          >{{ item.content }}</tag>
+            >{{ item.content }}</tag
+          >
           <div class="description">{{ item.description }}</div>
-          <div class="time"><i class="el-icon-time mar-r-10"></i>{{ item.createdAt }}</div>
+          <div class="time">
+            <i class="el-icon-time mar-r-10"></i>{{ item.createdAt }}
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-/** @format */
-
-import {Component, Vue, Prop, Emit} from 'vue-property-decorator'
-import {namespace, State, Action} from 'vuex-class'
-import {COLOR_ARRAY} from '@/common/constant'
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import { COLOR_ARRAY } from '@/common/constant'
 import Tag from '@/components/tag.vue'
 
 import Article from '@/model/article'
 
-import {ActionMethod} from 'vuex'
-const article = namespace('article')
-
-@Component({components: {Tag}})
+@Component({ components: { Tag } })
 export default class ListItem extends Vue {
   @Prop()
   items: Article
@@ -54,13 +49,12 @@ export default class ListItem extends Vue {
   }
 
   @Emit()
-  detail(id:number) {
+  detail(id: number) {
     return id
   }
 }
 </script>
 <style lang="less" scoped>
-/** @format */
 .home-article {
   .home-article-item-wrap {
     padding: 15px;

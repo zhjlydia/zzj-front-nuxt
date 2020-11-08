@@ -1,11 +1,6 @@
-<!-- @format -->
-
 <template>
   <div>
-    <div
-      class="article-detail"
-      v-if="articleDetail"
-    >
+    <div v-if="articleDetail" class="article-detail">
       <div
         class="article-image"
         :style="{'background-image': 'url(' + articleDetail.image + ')'}"
@@ -19,7 +14,8 @@
               :key="index"
               :color="getColor(item.id)"
               :selected="true"
-            >{{ item.content }}</tag-component>
+              >{{ item.content }}</tag-component
+            >
           </div>
           <div class="time">
             <div>
@@ -28,22 +24,20 @@
           </div>
         </div>
         <div
+          v-hljs-directive
           class="content article__content"
           v-html="articleDetail.content"
-          v-hljs-directive
         ></div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-/** @format */
+import { Component, Vue } from 'vue-property-decorator'
+import { namespace, State, Action } from 'vuex-class'
+import { ActionMethod } from 'vuex'
 
-import {Component, Vue} from 'vue-property-decorator'
-import {namespace, State, Action} from 'vuex-class'
-import {ActionMethod} from 'vuex'
-
-import {hljsDirective} from '@/directives'
+import { hljsDirective } from '@/directives'
 import 'highlight.js/styles/ocean.css'
 
 import TagComponent from '@/components/tag.vue'
@@ -52,21 +46,25 @@ import Article from '@/model/article'
 import Category from '@/model/category'
 import Tag from '@/model/tag'
 
+import { COLOR_ARRAY } from '@/common/constant'
+import { Loading, Catch } from '@/decorators'
+
 const article = namespace('modules/article')
 const category = namespace('modules/category')
 const tag = namespace('modules/tag')
 
-import {COLOR_ARRAY} from '@/common/constant'
-import {Loading, Catch} from '@/decorators'
-
-@Component({components: {TagComponent},async asyncData ({app,store,route}) {
-    const {id = 0} = route.params
-    let articleId = Number(id)
+@Component({
+  components: { TagComponent },
+  async asyncData({ app, store, route }) {
+    const { id = 0 } = route.params
+    const articleId = Number(id)
     if (articleId) {
-      store.commit('modules/article/M_SET_ID',articleId)
+      store.commit('modules/article/M_SET_ID', articleId)
       return store.dispatch('modules/article/fetchDetail')
     }
-  },directives:{hljsDirective}})
+  },
+  directives: { hljsDirective }
+})
 export default class ArticleDetail extends Vue {
   @article.State
   articleDetail: Article
@@ -81,7 +79,7 @@ export default class ArticleDetail extends Vue {
   resetArticleDetail: ActionMethod
 
   getColor(id: number) {
-    let index = id % COLOR_ARRAY.length
+    const index = id % COLOR_ARRAY.length
     return COLOR_ARRAY[index]
   }
 
@@ -91,8 +89,6 @@ export default class ArticleDetail extends Vue {
 }
 </script>
 <style lang="less" scoped>
-/** @format */
-
 .article-detail {
   position: relative;
   width: 1100px;

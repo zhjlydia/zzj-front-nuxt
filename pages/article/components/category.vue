@@ -1,12 +1,10 @@
-<!-- @format -->
-
 <template>
   <div class="category-list">
     <div
-      class="category-item"
-      :class="{selected: item.id === selected}"
       v-for="(item, index) in items"
       :key="index"
+      class="category-item"
+      :class="{selected: item.id === selected}"
       @click="select(item.id)"
     >
       {{ item.title }}
@@ -14,9 +12,7 @@
   </div>
 </template>
 <script lang="ts">
-/** @format */
-
-import {Component, Vue, Prop, Emit} from 'vue-property-decorator'
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
 import Category from '@/model/category'
 
 @Component
@@ -34,7 +30,6 @@ export default class CategoryComp extends Vue {
 }
 </script>
 <style lang="less" scoped>
-/** @format */
 .category-list {
   position: fixed;
   background: #fff;
