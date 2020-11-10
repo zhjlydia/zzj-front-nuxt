@@ -1,19 +1,19 @@
 <!-- @format -->
 
 <template>
-  <div
-    class="list-item"
-    @click="detail(item.id)"
-  >
+  <div class="list-item" @click="detail(item.id)">
     <div class="item-main">
       <p class="title">{{ item.title }}</p>
       <tag
         v-for="(item, index) in item.tags"
         :key="index"
         :color="getColor(index)"
-      >{{ item.content }}</tag>
+        >{{ item.content }}</tag
+      >
       <div class="description">{{ item.description }}</div>
-      <div class="time"><i class="el-icon-time mar-r-10"></i>{{ item.createdAt }}</div>
+      <div class="time">
+        <i class="el-icon-time mar-r-10"></i>{{ item.createdAt }}
+      </div>
     </div>
     <div class="image-wrap">
       <el-image
@@ -28,12 +28,12 @@
 <script lang="ts">
 /** @format */
 
-import {Component, Vue, Prop, Emit} from 'vue-property-decorator'
-import {COLOR_ARRAY} from '@/common/constant'
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import { COLOR_ARRAY } from '@/common/constant'
 import Tag from '@/components/tag.vue'
 import Article from '@/model/article'
 
-@Component({components: {Tag}})
+@Component({ components: { Tag } })
 export default class ListItem extends Vue {
   @Prop()
   item: Article
@@ -43,7 +43,7 @@ export default class ListItem extends Vue {
   }
 
   @Emit()
-  detail(id) {
+  detail(id: number) {
     return id
   }
 }

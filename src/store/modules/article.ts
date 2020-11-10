@@ -1,9 +1,9 @@
 /** @format */
-import {ActionTree, GetterTree, MutationTree} from 'vuex'
-import Article from '@/model/article'
-import {PaginationData} from '@/model/common'
-import {State as Root} from '..'
-import Category from '@/model/category'
+import { ActionTree, GetterTree, MutationTree } from 'vuex'
+import Article from '~/src/model/article'
+import { PaginationData } from '~/src/model/common'
+import Category from '~/src/model/category'
+import { State as Root } from '..'
 
 export interface State {
   id: number
@@ -18,7 +18,7 @@ export interface State {
   currentCategory: number
 }
 
-export const state = ():State => ({
+export const state = (): State => ({
   id: 0,
   articles: [],
   index: 0,
@@ -28,26 +28,25 @@ export const state = ():State => ({
   articleDetail: null,
 
   categories: [],
-  currentCategory: -1
+  currentCategory: -1,
 })
 
 export const getters: GetterTree<State, Root> = {
   /**
    * 列表是否可继续加载
    */
-  loadListAbled: state => state.index * state.size < state.total && !state.listLoading
+  loadListAbled: (state) =>
+    state.index * state.size < state.total && !state.listLoading,
 }
 
 export const mutations: MutationTree<State> = {
   M_SET_ID(state: State, id: number) {
-    console.log('M_SET_ID',id)
     state.id = id
-    
   },
   M_SET_ARTICLES(state: State, articles: Article[]) {
     state.articles = articles
   },
-  M_SET_PAGE(state: State, {index, size, total}) {
+  M_SET_PAGE(state: State, { index, size, total }) {
     if (index !== undefined) {
       state.index = index
     }
@@ -69,24 +68,27 @@ export const mutations: MutationTree<State> = {
   },
   M_SET_CURRENTCATEGORY(state: State, category: number) {
     state.currentCategory = category
-  }
+  },
 }
 export const actions: ActionTree<State, Root> = {
-  async fetchList({state, commit}, reset?: boolean) {
+  async fetchList({ state, commit }, reset?: boolean) {
     if (reset) {
-      commit('M_SET_PAGE', {index: 0})
+      commit('M_SET_PAGE', { index: 0 })
       commit('M_SET_ARTICLES', [])
     }
     commit('M_SET_List_Loading', true)
     try {
-      let params = {index: state.index + 1, size: state.size}
+      let params = { index: state.index + 1, size: state.size }
       if (state.currentCategory > 0) {
-        params = Object.assign(params, {category: state.currentCategory})
+        params = Object.assign(params, { category: state.currentCategory })
       }
-      const res: PaginationData<Article.RawData> = await (this as any).$axios.get('article/all', {
-        params
-      })
-      let articles: Article[] = res.list
+      const res: PaginationData<Article.RawData> = await (this as any).$axios.get(
+        'article/all',
+        {
+          params,
+        }
+      )
+      const articles: Article[] = res.list
         ? state.articles.concat(
             res.list.map((item: Article.RawData) => {
               return new Article(item)
@@ -94,29 +96,38 @@ export const actions: ActionTree<State, Root> = {
           )
         : state.articles
       commit('M_SET_ARTICLES', articles)
-      commit('M_SET_PAGE', {index: res.index, size: res.size, total: res.total})
+      commit('M_SET_PAGE', {
+        index: res.index,
+        size: res.size,
+        total: res.total,
+      })
     } catch (error) {
       throw new Error(error.message)
     } finally {
       commit('M_SET_List_Loading', false)
     }
   },
-  async fetchDetail({state, commit, dispatch}) {
+  async fetchDetail({ state, commit, dispatch }) {
     if (!state.id) {
       return
     }
-    const res: Article.RawData = await (this as any).$axios.get(`article/${state.id}`)
-    let articleDetail: Article = new Article(res)
+    const res: Article.RawData = await (this as any).$axios.get(
+      `article/${state.id}`
+    )
+    const articleDetail: Article = new Article(res)
     commit('M_SET_ARTICLE_DETAIL', articleDetail)
     dispatch('log')
   },
-  async resetArticleDetail({commit}) {
+  async resetArticleDetail({ commit }) {
     commit('M_SET_ARTICLE_DETAIL', null)
   },
-  async fetchCategory({commit}) {
-    const defaultCategory: Category[] = [{id: -1, title: '全部'}]
-    const res: Category.RawData[] = await (this as any).$axios.get('category/all',{ params: {module:'article'} })
-    let categories: Category[] = res
+  async fetchCategory({ commit }) {
+    const defaultCategory: Category[] = [{ id: -1, title: '全部' }]
+    const res: Category.RawData[] = await (this as any).$axios.get(
+      'category/all',
+      { params: { module: 'article' } }
+    )
+    const categories: Category[] = res
       ? defaultCategory.concat(
           res.map((item: Category.RawData) => {
             return new Category(item)
@@ -125,10 +136,13 @@ export const actions: ActionTree<State, Root> = {
       : defaultCategory
     commit('M_SET_CATEGORIES', categories)
   },
-  async log({state, commit}) {
+  async log({ state, commit }) {
     if (!state.id) {
       return
     }
-    await (this as any).$axios.post(`log`,{targetId:state.id,module:'article'})
-  }
+    await (this as any).$axios.post(`log`, {
+      targetId: state.id,
+      module: 'article',
+    })
+  },
 }

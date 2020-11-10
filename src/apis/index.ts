@@ -2,23 +2,19 @@
 
 import axios from 'axios'
 
-const http = axios.create({baseURL: 'api/'})
+const http = axios.create({ baseURL: 'api/' })
 
-http
-  .interceptors
-  .request
-  .use(config => {
-    console.log(config)
+http.interceptors.request.use(
+  (config) => {
     return config
-  }, error => {
+  },
+  (error) => {
     return Promise.reject(error)
-  })
+  }
+)
 
-http
-  .interceptors
-  .response
-  .use(res => {
-    console.log(res)
+http.interceptors.response.use(
+  (res) => {
     if (res.status === 204) {
       return res.data
     }
@@ -26,8 +22,10 @@ http
       return Promise.reject(new Error(res.data.message))
     }
     return res.data
-  }, error => {
+  },
+  (error) => {
     return Promise.reject(error)
-  })
+  }
+)
 
 export default http

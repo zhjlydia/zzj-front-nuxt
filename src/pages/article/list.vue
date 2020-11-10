@@ -38,10 +38,10 @@ const article = namespace('modules/article')
   async asyncData({ app, store }) {
     return Promise.all([
       store.dispatch('modules/article/fetchList', true),
-      store.dispatch('modules/article/fetchCategory')
+      store.dispatch('modules/article/fetchCategory'),
     ])
   },
-  layout: 'index'
+  layout: 'index',
 })
 export default class Articles extends Vue {
   @article.State
@@ -89,7 +89,6 @@ export default class Articles extends Vue {
   }
 
   detail(id: number) {
-    console.log(id)
     this.$router.push({ name: 'article-id', params: { id: String(id) } })
   }
 }
