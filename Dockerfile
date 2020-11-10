@@ -27,4 +27,4 @@ COPY --from=compiler /var/app/.nuxt ./.nuxt
 COPY tsconfig*.json ./tsconfig*.json
 
 EXPOSE 3000
-CMD ["node", "dist/main"]
+CMD ["npm", "start"]
