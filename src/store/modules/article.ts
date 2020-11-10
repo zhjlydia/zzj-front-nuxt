@@ -1,8 +1,8 @@
 /** @format */
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
-import Article from '~/src/model/article'
-import { PaginationData } from '~/src/model/common'
-import Category from '~/src/model/category'
+import Article from '@/model/article'
+import { PaginationData } from '@/model/common'
+import Category from '@/model/category'
 import { State as Root } from '..'
 
 export interface State {
