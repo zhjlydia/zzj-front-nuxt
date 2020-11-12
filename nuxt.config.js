@@ -29,6 +29,11 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: ['@nuxtjs/axios', '@nuxtjs/proxy'],
 
+  axios: {
+    prefix: '/api',
+    proxy: true,
+  },
+
   proxy: [
     [
       '/api',

@@ -24,7 +24,10 @@ WORKDIR /var/app
 COPY --from=installer /var/app/node_modules ./node_modules
 COPY --from=installer /var/app/package*.json ./
 COPY --from=compiler /var/app/.nuxt ./.nuxt
-COPY tsconfig*.json ./tsconfig*.json
+COPY tsconfig*.json ./
+COPY nuxt.config.js ./
 
+ENV NODE_ENV=production
+ENV HOST 0.0.0.0
 EXPOSE 3000
 CMD ["npm", "start"]
