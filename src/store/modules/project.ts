@@ -1,38 +1,148 @@
 /** @format */
-import {ActionTree, GetterTree, MutationTree} from 'vuex'
-import axios from 'axios'
-import {State as Root} from '..'
+import { ActionTree, GetterTree, MutationTree } from 'vuex'
+import Project from '@/model/project'
+import { PaginationData } from '@/model/common'
+import Category from '@/model/category'
+import { State as Root } from '..'
 
 export interface State {
-  repositories: any
-  loading: boolean
+  id: number
+  projects: Project[]
+  index: number
+  size: number
+  total: number
+  listLoading: boolean
+  projectDetail: Project
+
+  categories: Category[]
+  currentCategory: number
 }
 
-export const state=(): State =>({
-  repositories: [],
-  loading: false
+export const state = (): State => ({
+  id: 0,
+  projects: [],
+  index: 0,
+  size: 5,
+  total: 0,
+  listLoading: false,
+  projectDetail: null,
+
+  categories: [],
+  currentCategory: -1,
 })
 
-export const mutations: MutationTree<State> = {
-  M_SET_REPOSITORIES(state: State, repositories: any) {
-    state.repositories = repositories
-  },
+export const getters: GetterTree<State, Root> = {
+  /**
+   * 列表是否可继续加载
+   */
+  loadListAbled: (state) =>
+    state.index * state.size < state.total && !state.listLoading,
+}
 
-  M_SET_Loading(state: State, loading: boolean) {
-    state.loading = loading
-  }
+export const mutations: MutationTree<State> = {
+  M_SET_ID(state: State, id: number) {
+    state.id = id
+  },
+  M_SET_PROJECTS(state: State, projects: Project[]) {
+    state.projects = projects
+  },
+  M_SET_PAGE(state: State, { index, size, total }) {
+    if (index !== undefined) {
+      state.index = index
+    }
+    if (size !== undefined) {
+      state.size = size
+    }
+    if (total !== undefined) {
+      state.total = total
+    }
+  },
+  M_SET_List_Loading(state: State, loading: boolean) {
+    state.listLoading = loading
+  },
+  M_SET_PROJECT_DETAIL(state: State, projectDetail: Project) {
+    state.projectDetail = projectDetail
+  },
+  M_SET_CATEGORIES(state: State, categories: Category[]) {
+    state.categories = categories
+  },
+  M_SET_CURRENTCATEGORY(state: State, category: number) {
+    state.currentCategory = category
+  },
 }
 export const actions: ActionTree<State, Root> = {
-  async fetch({state, commit}) {
-    commit('M_SET_Loading', true)
+  async fetchList({ state, commit }, reset?: boolean) {
+    if (reset) {
+      commit('M_SET_PAGE', { index: 0 })
+      commit('M_SET_PROJECTS', [])
+    }
+    commit('M_SET_List_Loading', true)
     try {
-      const res: any = await axios.get('https://api.github.com/users/zhjlydia/repos')
-      console.log(res)
-      //   commit('M_SET_ARTICLES', articles)
+      let params = { index: state.index + 1, size: state.size }
+      if (state.currentCategory > 0) {
+        params = Object.assign(params, { category: state.currentCategory })
+      }
+      const res: PaginationData<Project.RawData> = await (this as any).$axios.get(
+        'project/all',
+        {
+          params,
+        }
+      )
+      const projects: Project[] = res.list
+        ? state.projects.concat(
+            res.list.map((item: Project.RawData) => {
+              return new Project(item)
+            })
+          )
+        : state.projects
+      commit('M_SET_PROJECTS', projects)
+      commit('M_SET_PAGE', {
+        index: res.index,
+        size: res.size,
+        total: res.total,
+      })
     } catch (error) {
       throw new Error(error.message)
     } finally {
-      commit('M_SET_Loading', false)
+      commit('M_SET_List_Loading', false)
     }
-  }
+  },
+  async fetchDetail({ state, commit, dispatch }) {
+    if (!state.id) {
+      return
+    }
+    const res: Project.RawData = await (this as any).$axios.get(
+      `project/${state.id}`
+    )
+    const projectDetail: Project = new Project(res)
+    commit('M_SET_PROJECT_DETAIL', projectDetail)
+    dispatch('log')
+  },
+  async resetProjectDetail({ commit }) {
+    commit('M_SET_PROJECT_DETAIL', null)
+  },
+  async fetchCategory({ commit }) {
+    const defaultCategory: Category[] = [{ id: -1, title: '全部' }]
+    const res: Category.RawData[] = await (this as any).$axios.get(
+      'category/all',
+      { params: { module: 'project' } }
+    )
+    const categories: Category[] = res
+      ? defaultCategory.concat(
+          res.map((item: Category.RawData) => {
+            return new Category(item)
+          })
+        )
+      : defaultCategory
+    commit('M_SET_CATEGORIES', categories)
+  },
+  async log({ state, commit }) {
+    if (!state.id) {
+      return
+    }
+    await (this as any).$axios.post(`log`, {
+      targetId: state.id,
+      module: 'project',
+    })
+  },
 }

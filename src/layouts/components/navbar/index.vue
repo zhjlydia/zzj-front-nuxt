@@ -7,7 +7,7 @@
       src="http://cdn.zhouzhoujiang.com/blog/logo4.png"
       @click="home"
     />
-    <!-- <div class="menu">
+    <div class="menu">
       <div
         class="menu-item"
         :class="{active: item.path === activeMenu}"
@@ -37,7 +37,7 @@
           <router-link :to="item.path">{{ item.title }}</router-link>
         </div>
       </div>
-    </el-drawer> -->
+    </el-drawer>
   </div>
 </template>
 <script lang="ts">
@@ -53,7 +53,7 @@ export default class NavBar extends Vue {
       title: 'articles'
     },
     {
-      path: '/project/index',
+      path: '/project/list',
       title: 'projects'
     }
   ]
