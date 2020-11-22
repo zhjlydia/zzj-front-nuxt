@@ -103,6 +103,7 @@ export default class Projects extends Vue {
   .project-item{
     width:33.3%;
     float:left;
+    padding:0 15px;
   }
   .more,
   .loading {

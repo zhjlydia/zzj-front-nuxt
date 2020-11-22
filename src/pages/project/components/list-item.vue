@@ -2,8 +2,16 @@
 
 <template>
   <div class="list-item" @click="detail(item.id)">
+    <div class="image-wrap">
+      <el-image
+        v-if="item.image"
+        class="image"
+        :src="item.image"
+        fit="cover"
+      ></el-image>
+    </div>
     <div class="item-main">
-      <p class="title">{{ item.title }}</p>
+      <p class="title">{{ item.name }}</p>
       <tag
         v-for="(item, index) in item.tags"
         :key="index"
@@ -15,14 +23,7 @@
         <i class="el-icon-time mar-r-10"></i>{{ item.createdAt }}
       </div>
     </div>
-    <div class="image-wrap">
-      <el-image
-        v-if="item.image"
-        class="image"
-        :src="item.image"
-        fit="cover"
-      ></el-image>
-    </div>
+    
   </div>
 </template>
 <script lang="ts">
@@ -54,11 +55,12 @@ export default class ListItem extends Vue {
   color: #333;
   font-size: 14px;
   background: #fff;
-  display: flex;
+  margin-bottom:30px;
+  border-radius: 10px;
+  overflow: hidden;
   cursor: pointer;
   .item-main {
     padding: 10px;
-    flex: 1 0;
   }
   .title {
     font-size: 16px;
@@ -84,16 +86,16 @@ export default class ListItem extends Vue {
     margin-top: 10px;
   }
   .image-wrap {
-    flex: 0 0 25%;
-    width: 25%;
-    height: 50%;
+    width: 100%;
+    height: 250px;
     -webkit-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
-    padding: 10px;
+    
+    
   }
   .image {
     text-align: center;
-    border-radius: 10px;
+    
     width: 100%;
     height: 100%;
   }
