@@ -2,28 +2,28 @@
 
 <template>
   <div class="list-item" @click="detail(item.id)">
-    <div class="image-wrap">
       <el-image
         v-if="item.image"
         class="image"
         :src="item.image"
         fit="cover"
       ></el-image>
-    </div>
-    <div class="item-main">
-      <p class="title">{{ item.name }}</p>
-      <tag
-        v-for="(item, index) in item.tags"
+      <div class="content">
+        <p class="title">{{ item.name }}</p>
+        <tag
+        v-for="(tag, index) in item.tags"
         :key="index"
         :color="getColor(index)"
-        >{{ item.content }}</tag
-      >
-      <div class="description">{{ item.description }}</div>
-      <div class="time">
-        <i class="el-icon-time mar-r-10"></i>{{ item.createdAt }}
+        >{{ tag.content }}
+        </tag>
+        <div class="time">
+          {{ item.startedAt | formatDate('YYYY-MM-DD') }} 至
+          {{ item.endedAt | formatDate('YYYY-MM-DD') }}
+        </div>
       </div>
-    </div>
-    
+      <div class="content2">
+        <div class="description">{{ item.description }}</div>
+      </div>  
   </div>
 </template>
 <script lang="ts">
@@ -33,8 +33,9 @@ import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
 import { COLOR_ARRAY } from '@/common/constant'
 import Tag from '@/components/tag.vue'
 import Article from '@/model/article'
+import { formatDate } from '@/utils/filters'
 
-@Component({ components: { Tag } })
+@Component({ components: { Tag } ,filters: { formatDate }})
 export default class ListItem extends Vue {
   @Prop()
   item: Article
@@ -52,52 +53,56 @@ export default class ListItem extends Vue {
 <style lang="less" scoped>
 /** @format */
 .list-item {
-  color: #333;
+  color: #fff;
   font-size: 14px;
-  background: #fff;
   margin-bottom:30px;
   border-radius: 10px;
+  text-align: center;
   overflow: hidden;
   cursor: pointer;
-  .item-main {
-    padding: 10px;
+  position:relative;
+  &:hover{
+    .content2{
+      opacity: 1;
+      transform: scale(1);
+    }
+    .content{
+      opacity:0;
+      transform: translateY(50%);
+    }
+  }
+  .content,.content2 {
+    background:rgba(0,0,0,0.4);
+    position:absolute;
+    left:15px;
+    top:15px;
+    bottom:15px;
+    right:15px;
+    padding: 120px 10px 0 10px;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+  }
+  .content{
+    opacity:1;
+  }
+  .content2{
+    opacity:0;
+    transform: scale(0.9);
   }
   .title {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 15px;
-    color: #666;
-  }
-  .description {
-    margin: 15px 0;
-    color: #757575;
-    line-height: 1.5;
-    height: 45px;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
   }
   .time {
     font-size: 10px;
     font-weight: bold;
-  }
-  .category {
-    margin-top: 10px;
-  }
-  .image-wrap {
-    width: 100%;
-    height: 250px;
-    -webkit-transition: all 0.2s ease-in;
-    transition: all 0.2s ease-in;
-    
-    
+    margin-top:10px;
   }
   .image {
     text-align: center;
-    
     width: 100%;
-    height: 100%;
+    height: 250px;
   }
 }
 @media (max-width: 650px) {

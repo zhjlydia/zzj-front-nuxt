@@ -96,7 +96,7 @@ export default class Articles extends Vue {
 
 <style lang="less" scoped>
 .article-list {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   min-height: 100vh;
   .list {

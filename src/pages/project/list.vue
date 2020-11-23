@@ -93,7 +93,7 @@ export default class Projects extends Vue {
 
 <style lang="less" scoped>
 .project-list {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   min-height: 100vh;
   .list {
