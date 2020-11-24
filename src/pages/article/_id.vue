@@ -63,7 +63,8 @@ const tag = namespace('modules/tag')
       return store.dispatch('modules/article/fetchDetail')
     }
   },
-  directives: { hljsDirective }
+  directives: { hljsDirective },
+  layout: 'detail'
 })
 export default class ArticleDetail extends Vue {
   @article.State

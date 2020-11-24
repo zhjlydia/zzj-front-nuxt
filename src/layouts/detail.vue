@@ -14,8 +14,6 @@ import navBar from '@/layouts/components/navbar/index.vue'
 import appMain from '@/layouts/components/appmain/index.vue'
 import footerBar from '@/layouts/components/footerBar/index.vue'
 
-
-
 const user = namespace('user')
 
 @Component({components: {navBar, appMain, footerBar}})

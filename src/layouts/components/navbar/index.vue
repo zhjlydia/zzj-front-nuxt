@@ -114,6 +114,9 @@ export default class NavBar extends Vue {
       bottom: 0;
     }
   }
+  .menu{
+    margin-bottom:5px;
+  }
   .menu-item {
     height: 25px;
     line-height: 25px;

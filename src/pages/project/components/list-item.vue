@@ -61,6 +61,7 @@ export default class ListItem extends Vue {
   overflow: hidden;
   cursor: pointer;
   position:relative;
+  height:250px;
   &:hover{
     .content2{
       opacity: 1;
@@ -102,7 +103,7 @@ export default class ListItem extends Vue {
   .image {
     text-align: center;
     width: 100%;
-    height: 250px;
+    height: 100%;
   }
 }
 @media (max-width: 650px) {

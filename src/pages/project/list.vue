@@ -1,6 +1,6 @@
 <template>
   <div class="project-list main">
-    <div class="list">
+    <div class="list clearfix">
       <div v-for="(item, index) in projects" :key="index" class="project-item">
         <list-item :item="item" @detail="detail"></list-item>
       </div>
@@ -38,7 +38,7 @@ const project = namespace('modules/project')
       store.dispatch('modules/project/fetchCategory'),
     ])
   },
-  layout: 'index',
+  layout: 'list',
 })
 export default class Projects extends Vue {
   @project.State
@@ -98,12 +98,14 @@ export default class Projects extends Vue {
   min-height: 100vh;
   .list {
     min-height: 300px;
-    padding: 30px 0;
   }
   .project-item{
-    width:33.3%;
+    width:32%;
     float:left;
-    padding:0 15px;
+    margin-right:2%;
+    &:nth-child(3n+3){
+      margin-right:0;
+    }
   }
   .more,
   .loading {

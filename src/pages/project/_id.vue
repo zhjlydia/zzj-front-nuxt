@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div v-if="articleDetail" class="article-detail">
+    <div v-if="projectDetail" class="project-detail">
       <div
-        class="article-image"
-        :style="{'background-image': 'url(' + articleDetail.image + ')'}"
+        class="project-image"
+        :style="{'background-image': 'url(' + projectDetail.image + ')'}"
       ></div>
       <div class="detail-body">
-        <div class="article-header">
+        <div class="project-header">
           <div>
-            <div class="title">{{ articleDetail.title }}</div>
+            <div class="title">{{ projectDetail.title }}</div>
             <tag-component
-              v-for="(item, index) in articleDetail.tags"
+              v-for="(item, index) in projectDetail.tags"
               :key="index"
               :color="getColor(item.id)"
               :selected="true"
@@ -19,14 +19,14 @@
           </div>
           <div class="time">
             <div>
-              {{ articleDetail.createdAt }}
+              {{ projectDetail.createdAt }}
             </div>
           </div>
         </div>
         <div
           v-hljs-directive
-          class="content article__content"
-          v-html="articleDetail.content"
+          class="content project__content"
+          v-html="projectDetail.content"
         ></div>
       </div>
     </div>
@@ -42,14 +42,14 @@ import 'highlight.js/styles/ocean.css'
 
 import TagComponent from '@/components/tag.vue'
 
-import Article from '@/model/article'
+import Project from '@/model/project'
 import Category from '@/model/category'
 import Tag from '@/model/tag'
 
 import { COLOR_ARRAY } from '@/common/constant'
 import { Loading, Catch } from '@/decorators'
 
-const article = namespace('modules/article')
+const project = namespace('modules/project')
 const category = namespace('modules/category')
 const tag = namespace('modules/tag')
 
@@ -57,26 +57,26 @@ const tag = namespace('modules/tag')
   components: { TagComponent },
   async asyncData({ app, store, route }) {
     const { id = 0 } = route.params
-    const articleId = Number(id)
-    if (articleId) {
-      store.commit('modules/article/M_SET_ID', articleId)
-      return store.dispatch('modules/article/fetchDetail')
+    const projectId = Number(id)
+    if (projectId) {
+      store.commit('modules/project/M_SET_ID', projectId)
+      return store.dispatch('modules/project/fetchDetail')
     }
   },
   directives: { hljsDirective }
 })
-export default class ArticleDetail extends Vue {
-  @article.State
-  articleDetail: Article
+export default class ProjectDetail extends Vue {
+  @project.State
+  projectDetail: Project
 
-  @article.State
+  @project.State
   id: number
 
-  @article.Action('fetchDetail')
-  fetchArticleDetail: ActionMethod
+  @project.Action('fetchDetail')
+  fetchProjectDetail: ActionMethod
 
-  @article.Action
-  resetArticleDetail: ActionMethod
+  @project.Action
+  resetProjectDetail: ActionMethod
 
   getColor(id: number) {
     const index = id % COLOR_ARRAY.length
@@ -84,12 +84,12 @@ export default class ArticleDetail extends Vue {
   }
 
   destroyed() {
-    this.resetArticleDetail()
+    this.resetProjectDetail()
   }
 }
 </script>
 <style lang="less" scoped>
-.article-detail {
+.project-detail {
   position: relative;
   width: 1100px;
   padding: 200px 30px 30px 30px;
@@ -97,7 +97,7 @@ export default class ArticleDetail extends Vue {
   box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
   margin: 0 auto;
   border-radius: 20px;
-  .article-image {
+  .project-image {
     position: absolute;
     top: 0;
     left: 0;
@@ -117,7 +117,7 @@ export default class ArticleDetail extends Vue {
     overflow: hidden;
     border: 1px solid #eee;
   }
-  .article-header {
+  .project-header {
     color: #333;
     padding: 30px;
     display: flex;
@@ -147,14 +147,14 @@ export default class ArticleDetail extends Vue {
   }
 }
 @media (max-width: 650px) {
-  .article-detail {
+  .project-detail {
     width: 100%;
     padding: 150px 0 0 0;
-    .article-image {
+    .project-image {
       height: 200px;
       border-radius: 0;
     }
-    .article-header {
+    .project-header {
       padding: 20px;
       .title {
         font-size: 16px;

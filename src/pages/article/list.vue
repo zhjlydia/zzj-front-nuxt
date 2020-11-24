@@ -41,7 +41,7 @@ const article = namespace('modules/article')
       store.dispatch('modules/article/fetchCategory'),
     ])
   },
-  layout: 'index',
+  layout: 'list',
 })
 export default class Articles extends Vue {
   @article.State
