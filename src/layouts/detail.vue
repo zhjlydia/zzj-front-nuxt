@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-bar></nav-bar>
     <app-main />
     <footer-bar />
   </div>
@@ -17,6 +16,6 @@ import footerBar from '@/layouts/components/footerBar/index.vue'
 const user = namespace('user')
 
 @Component({components: {navBar, appMain, footerBar}})
-export default class LayOut extends Vue {
+export default class DetailLayOut extends Vue {
 }
 </script>

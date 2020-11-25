@@ -17,6 +17,6 @@ import footerBar from '@/layouts/components/footerBar/index.vue'
 const user = namespace('user')
 
 @Component({components: {navBar, appMain, footerBar}})
-export default class LayOut extends Vue {
+export default class ListLayOut extends Vue {
 }
 </script>

@@ -36,3 +36,17 @@ export interface PaginationOptions {
    */
   size?: number
 }
+
+/**
+ * 面包屑
+ */
+export interface BreadcrumbItem {
+  /**
+   * 页面路径
+   */
+  routerName?: string
+  /**
+   * 页面名称
+   */
+  name: string
+}
