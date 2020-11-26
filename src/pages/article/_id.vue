@@ -104,30 +104,24 @@ export default class ArticleDetail extends Vue {
 </script>
 <style lang="less" scoped>
 .article-detail {
-  padding-top: 85px;
+  padding-top: 60px;
   .article-content {
     position: relative;
-    width: 1200px;
-    padding: 400px 30px 30px 30px;
-    background: #fff;
-    box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
-    margin: 0 auto;
     .article-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
       height: 400px;
-      z-index: 1;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
     }
     .detail-body {
       position: relative;
-      z-index: 2;
-      margin: 0 auto;
+      width: 1200px;
+      background: #fff;
+      box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
+      margin: -150px auto 0 auto;
       overflow: hidden;
+      border-radius: 30px;
+      padding: 0 30px 30px;
       border: 1px solid #eee;
     }
     .article-header {

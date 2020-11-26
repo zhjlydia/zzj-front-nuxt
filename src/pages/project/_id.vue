@@ -1,41 +1,45 @@
 <template>
   <div class="project-detail">
-    <div v-if="projectDetail" class="project-content">
+    <template v-if="projectDetail">
       <breadcrumb :item="breadcrumbItem">
         <span class="mar-l-5 mar-r-5">/</span>
         {{ projectDetail.category.title }}
         <span class="mar-l-5 mar-r-5">/</span>
-        {{ projectDetail.title }}</breadcrumb
+        {{ projectDetail.name }}</breadcrumb
       >
-      <div
-        class="project-image"
-        :style="{ 'background-image': 'url(' + projectDetail.image + ')' }"
-      ></div>
-      <div class="detail-body">
-        <div class="project-header">
-          <div>
-            <div class="title">{{ projectDetail.title }}</div>
+      <div class="banner">
+        <div
+          class="bg"
+          :style="{ 'background-image': 'url(' + projectDetail.image + ')' }"
+        ></div>
+        <div class="content">
+          <div
+            class="image"
+            :style="{ 'background-image': 'url(' + projectDetail.image + ')' }"
+          ></div>
+          <div class="info">
+            <div class="name">
+              {{ projectDetail.name }}
+            </div>
+            <div class="description">{{ projectDetail.description }}</div>
             <tag-component
               v-for="(item, index) in projectDetail.tags"
               :key="index"
               :color="getColor(item.id)"
               :selected="true"
-              >{{ item.content }}</tag-component
-            >
-          </div>
-          <div class="time">
-            <div>
-              {{ projectDetail.createdAt }}
-            </div>
+              >{{ item.content }}
+            </tag-component>
           </div>
         </div>
+      </div>
+      <div class="detail-body">
         <div
           v-hljs-directive
-          class="content project__content"
+          class="project__content"
           v-html="projectDetail.content"
         ></div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 <script lang="ts">
@@ -89,7 +93,7 @@ export default class ProjectDetail extends Vue {
 
   breadcrumbItem: BreadcrumbItem = {
     routerName: 'project-list',
-    name: '文章',
+    name: '项目',
   }
 
   getColor(id: number) {
@@ -104,59 +108,94 @@ export default class ProjectDetail extends Vue {
 </script>
 <style lang="less" scoped>
 .project-detail {
-  padding-top: 85px;
-  .project-content {
+  padding-top: 60px;
+  .banner {
+    height: 500px;
+    width: 100%;
+    position: relative;
+    .bg {
+      z-index: 1;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.4;
+      background-position: 50%;
+      background-size: cover;
+      -webkit-box-shadow: 0 -40px 30px 40px #fff inset;
+      box-shadow: inset 0 -40px 30px 40px #fff;
+      -webkit-filter: blur(6px);
+      filter: blur(6px);
+      -webkit-transform: scale(1.3);
+      transform: scale(1.3);
+    }
+    .content {
+      width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .image {
+        width: 600px;
+        height: 300px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 10px;
+      }
+      .info {
+        width: 600px;
+        padding: 30px 80px;
+        .name {
+          font-size: 24px;
+          margin-bottom: 20px;
+        }
+        .description {
+          font-size: 16px;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  .detail-body {
     position: relative;
     width: 1200px;
-    padding: 400px 30px 30px 30px;
+    padding: 30px;
     background: #fff;
     box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
     margin: 0 auto;
-    .project-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 400px;
-      z-index: 1;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
+    overflow: hidden;
+    border: 1px solid #eee;
+  }
+  .project-header {
+    color: #333;
+    padding: 30px;
+    display: flex;
+    background: #fff;
+    justify-content: space-between;
+    border-bottom: 1px dashed #c7c5c5;
+    .title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 15px;
     }
-    .detail-body {
-      position: relative;
-      z-index: 2;
-      margin: 0 auto;
-      overflow: hidden;
-      border: 1px solid #eee;
-    }
-    .project-header {
-      color: #333;
-      padding: 30px;
+    .time {
+      font-size: 14px;
+      padding: 10px;
+      border: 1px dashed #c7c5c5;
+      width: 100px;
+      text-align: center;
+      font-weight: bold;
+      text-align: center;
       display: flex;
-      background: #fff;
-      justify-content: space-between;
-      border-bottom: 1px dashed #c7c5c5;
-      .title {
-        font-size: 22px;
-        font-weight: 600;
-        margin-bottom: 15px;
-      }
-      .time {
-        font-size: 14px;
-        padding: 10px;
-        border: 1px dashed #c7c5c5;
-        width: 100px;
-        text-align: center;
-        font-weight: bold;
-        text-align: center;
-        display: flex;
-        align-items: center;
-      }
-    }
-    .content {
-      background: #fff;
-      padding: 30px;
+      align-items: center;
     }
   }
 }
