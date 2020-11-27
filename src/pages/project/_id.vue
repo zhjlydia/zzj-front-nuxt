@@ -33,9 +33,22 @@
         </div>
       </div>
       <div class="detail-body">
+        <div class="more-info" v-for="(item, index) in infoItems" :key="index">
+          <div
+            class="info-item"
+            v-for="(sub, subIndex) in item"
+            :key="subIndex"
+          >
+            <i class="icon" :class="['el-icon-' + sub.icon]"></i>
+            <p class="label">{{ sub.label }}</p>
+            <div class="value">
+              <span class="val">{{ sub.value }}</span>
+            </div>
+          </div>
+        </div>
         <div
           v-hljs-directive
-          class="project__content"
+          class="detail-content project__content"
           v-html="projectDetail.content"
         ></div>
       </div>
@@ -96,6 +109,51 @@ export default class ProjectDetail extends Vue {
     name: '项目',
   }
 
+  get infoItems() {
+    return [
+      [
+        {
+          icon: 'paperclip',
+          label: '项目类型',
+          type: 'text',
+          value: this.projectDetail.category.title,
+        },
+        {
+          icon: 'loading',
+          label: '项目状态',
+          type: 'text',
+          value: this.projectDetail.state,
+        },
+        {
+          icon: 'watch',
+          label: '项目时间',
+          type: 'text',
+          value: `${this.projectDetail.startedAt}-${this.projectDetail.endedAt}`,
+        },
+      ],
+      [
+        {
+          icon: 'user',
+          label: '我的角色',
+          type: 'text',
+          value: this.projectDetail.role,
+        },
+        {
+          icon: 'office-building',
+          label: '仓库地址',
+          type: 'text',
+          value: this.projectDetail.github,
+        },
+        {
+          icon: 'link',
+          label: '预览地址',
+          type: 'text',
+          value: this.projectDetail.url,
+        },
+      ],
+    ]
+  }
+
   getColor(id: number) {
     const index = id % COLOR_ARRAY.length
     return COLOR_ARRAY[index]
@@ -114,7 +172,6 @@ export default class ProjectDetail extends Vue {
     width: 100%;
     position: relative;
     .bg {
-      z-index: 1;
       position: absolute;
       left: 0;
       right: 0;
@@ -152,6 +209,7 @@ export default class ProjectDetail extends Vue {
       .info {
         width: 600px;
         padding: 30px 80px;
+
         .name {
           font-size: 24px;
           margin-bottom: 20px;
@@ -173,29 +231,58 @@ export default class ProjectDetail extends Vue {
     margin: 0 auto;
     overflow: hidden;
     border: 1px solid #eee;
-  }
-  .project-header {
-    color: #333;
-    padding: 30px;
-    display: flex;
-    background: #fff;
-    justify-content: space-between;
-    border-bottom: 1px dashed #c7c5c5;
-    .title {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 15px;
-    }
-    .time {
-      font-size: 14px;
-      padding: 10px;
-      border: 1px dashed #c7c5c5;
-      width: 100px;
-      text-align: center;
-      font-weight: bold;
-      text-align: center;
+    .more-info {
       display: flex;
-      align-items: center;
+      justify-content: space-around;
+      .info-item {
+        width: 25%;
+        text-align: center;
+        position: relative;
+        padding: 30px 0;
+        &:before {
+          content: '';
+          height: 1px;
+          background: #ddd;
+          position: absolute;
+          left: 40px;
+          right: 40px;
+          bottom: 0;
+        }
+        .icon {
+          font-size: 26px;
+          margin-bottom: 20px;
+        }
+        .label {
+          font-size: 16px;
+          margin-bottom: 20px;
+        }
+        .value {
+          height: 20px;
+          font-size: 14px;
+          line-height: 20px;
+          position: relative;
+          display: inline-block;
+          .val {
+            position: relative;
+            z-index: 1;
+          }
+          &:before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 6px;
+            background: #ffe082;
+            z-index: 0;
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+        }
+      }
+    }
+    .detail-content {
+      padding: 30px;
     }
   }
 }

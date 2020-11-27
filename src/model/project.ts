@@ -8,13 +8,14 @@ class Project {
   id: number
   name: string
   description: string
-  image:string
+  image: string
   content: string
-  github:string
-  role:string
-  url:string
-  startedAt:string
-  endedAt:string
+  state: string
+  github: string
+  role: string
+  url: string
+  startedAt: string
+  endedAt: string
   createdAt: string
   updatedAt?: string
   author?: User
@@ -25,17 +26,18 @@ class Project {
     this.name = data.name
     this.image = data.image
     this.description = data.description
+    this.state = data.state || '暂未更新'
     this.content = data.content
-    this.github=data.github
-    this.role=data.role
-    this.url=data.url
+    this.github = data.github
+    this.role = data.role
+    this.url = data.url || '暂无'
     this.startedAt = dayjs(data.startedAt).format('YYYY-MM-DD')
     this.endedAt = dayjs(data.endedAt).format('YYYY-MM-DD')
     this.createdAt = dayjs(data.createdAt).format('YYYY-MM-DD')
     this.updatedAt = dayjs(data.updatedAt).format('YYYY-MM-DD')
     this.author = new User(data.author)
     this.category = new Category(data.category)
-    this.tags = data.tags.map(item => {
+    this.tags = data.tags.map((item) => {
       return new Tag(item)
     })
   }
@@ -47,12 +49,13 @@ namespace Project {
     name: string
     image: string
     description: string
+    state: string
     content: string
-    github:string
-    role:string
-    url:string
-    startedAt:Date
-    endedAt:Date
+    github: string
+    role: string
+    url: string
+    startedAt: Date
+    endedAt: Date
     createdAt: Date
     updatedAt: Date
     author: User.RawData
