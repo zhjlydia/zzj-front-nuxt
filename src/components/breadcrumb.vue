@@ -31,25 +31,29 @@ export default class Breadcrumb extends Vue {
   left: 0;
   right: 0;
   background: #f5f5f5;
+
   z-index: 100;
   box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
   .breadcrumb {
-    width: 1200px;
+    max-width: 1240px;
     margin: 0 auto;
+    padding: 0 20px;
+    height: 100%;
   }
   .breadcrumb-item {
     background: #ffe082;
-    padding: 0 15px;
+    padding: 0 10px;
     height: 30px;
     line-height: 30px;
     display: inline-block;
     border-radius: 8px;
-    margin-right: 10px;
+    margin-right: 5px;
     cursor: pointer;
   }
 }
 @media (max-width: 650px) {
-  .breadcrumb {
+  .breadcrumb-wrap {
+    font-size: 12px;
   }
 }
 </style>

@@ -1,6 +1,9 @@
 export default {
   srcDir: 'src/',
   // Global page headers (https://go.nuxtjs.dev/config-head)
+  server: {
+    port: 4000,
+  },
   head: {
     title: 'zhouzhou',
     meta: [
@@ -9,6 +12,11 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+  },
+
+  loading: {
+    color: '#ffe082',
+    height: '3px',
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -35,10 +43,7 @@ export default {
   },
 
   proxy: [
-    [
-      '/api',
-      { target: 'http://api.zhouzhoujiang.com', pathRewrite: { '^/api': '' } },
-    ],
+    ['/api', { target: 'http://localhost:3001', pathRewrite: { '^/api': '' } }],
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

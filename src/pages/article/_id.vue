@@ -1,6 +1,6 @@
 <template>
   <div class="article-detail">
-    <div v-if="articleDetail" class="article-content">
+    <template v-if="articleDetail">
       <breadcrumb :item="breadcrumbItem">
         <span class="mar-l-5 mar-r-5">/</span>
         {{ articleDetail.category.title }}
@@ -11,31 +11,33 @@
         class="article-image"
         :style="{ 'background-image': 'url(' + articleDetail.image + ')' }"
       ></div>
-      <div class="detail-body">
-        <div class="article-header">
-          <div>
-            <div class="title">{{ articleDetail.title }}</div>
-            <tag-component
-              v-for="(item, index) in articleDetail.tags"
-              :key="index"
-              :color="getColor(item.id)"
-              :selected="true"
-              >{{ item.content }}</tag-component
-            >
-          </div>
-          <div class="time">
+      <div class="article-content">
+        <div class="detail-body">
+          <div class="article-header">
             <div>
-              {{ articleDetail.createdAt }}
+              <div class="title">{{ articleDetail.title }}</div>
+              <tag-component
+                v-for="(item, index) in articleDetail.tags"
+                :key="index"
+                :color="getColor(item.id)"
+                :selected="true"
+                >{{ item.content }}</tag-component
+              >
+            </div>
+            <div class="time">
+              <div>
+                {{ articleDetail.createdAt }}
+              </div>
             </div>
           </div>
+          <div
+            v-hljs-directive
+            class="content article__content"
+            v-html="articleDetail.content"
+          ></div>
         </div>
-        <div
-          v-hljs-directive
-          class="content article__content"
-          v-html="articleDetail.content"
-        ></div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 <script lang="ts">
@@ -105,23 +107,23 @@ export default class ArticleDetail extends Vue {
 <style lang="less" scoped>
 .article-detail {
   padding-top: 60px;
+  position: relative;
+  .article-image {
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
   .article-content {
-    position: relative;
-    .article-image {
-      height: 400px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
+    max-width: 1200px;
+    margin: 0 auto;
     .detail-body {
       position: relative;
-      width: 1200px;
       background: #fff;
       box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
-      margin: -150px auto 0 auto;
+      margin-top: -150px;
       overflow: hidden;
       border-radius: 30px;
-      padding: 0 30px 30px;
       border: 1px solid #eee;
     }
     .article-header {
@@ -155,23 +157,24 @@ export default class ArticleDetail extends Vue {
   }
 }
 @media (max-width: 650px) {
-  .article-content {
-    width: 100%;
-    padding: 150px 0 0 0;
-    .article-image {
-      height: 200px;
-      border-radius: 0;
-    }
-    .article-header {
-      padding: 20px;
-      .title {
-        font-size: 16px;
+  .article-detail {
+    .article-content {
+      width: 100%;
+      .article-image {
+        height: 200px;
+        border-radius: 0;
       }
-      .time {
-        border: none;
-        font-size: 12px;
-        width: auto;
-        padding: 0;
+      .article-header {
+        padding: 20px;
+        .title {
+          font-size: 16px;
+        }
+        .time {
+          border: none;
+          font-size: 12px;
+          width: auto;
+          padding: 0;
+        }
       }
     }
   }

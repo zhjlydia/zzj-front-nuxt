@@ -75,7 +75,7 @@ export default class Home extends Vue {
     box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
   }
   .user-info {
-    width: 500px;
+    width: 400px;
     position: relative;
     padding: 50px;
     background: #fff;
@@ -85,8 +85,8 @@ export default class Home extends Vue {
     text-align: center;
     border-radius: 10px;
     .head-wrap {
-      width: 250px;
-      height: 250px;
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
       border: 3px solid #fff;
       box-shadow: 0 10px 20px rgba(36, 37, 38, 0.15);
@@ -109,8 +109,8 @@ export default class Home extends Vue {
       border-radius: 20px;
       background: #ffe082;
       text-align: center;
-      top: 50px;
-      left: 170px;
+      top: 40px;
+      left: 140px;
     }
     .tip {
       font-weight: bold;

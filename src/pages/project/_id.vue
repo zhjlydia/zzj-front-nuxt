@@ -39,8 +39,10 @@
             v-for="(sub, subIndex) in item"
             :key="subIndex"
           >
-            <i class="icon" :class="['el-icon-' + sub.icon]"></i>
-            <p class="label">{{ sub.label }}</p>
+            <div>
+              <i class="icon" :class="['el-icon-' + sub.icon]"></i>
+              <p class="label">{{ sub.label }}</p>
+            </div>
             <div class="value">
               <span class="val">{{ sub.value }}</span>
             </div>
@@ -48,7 +50,7 @@
         </div>
         <div
           v-hljs-directive
-          class="detail-content project__content"
+          class="detail-content article__content"
           v-html="projectDetail.content"
         ></div>
       </div>
@@ -119,24 +121,24 @@ export default class ProjectDetail extends Vue {
           value: this.projectDetail.category.title,
         },
         {
-          icon: 'loading',
+          icon: 'timer',
           label: '项目状态',
           type: 'text',
           value: this.projectDetail.state,
         },
         {
-          icon: 'watch',
-          label: '项目时间',
-          type: 'text',
-          value: `${this.projectDetail.startedAt}-${this.projectDetail.endedAt}`,
-        },
-      ],
-      [
-        {
           icon: 'user',
           label: '我的角色',
           type: 'text',
           value: this.projectDetail.role,
+        },
+      ],
+      [
+        {
+          icon: 'watch',
+          label: '项目时间',
+          type: 'text',
+          value: `${this.projectDetail.startedAt} 至 ${this.projectDetail.endedAt}`,
         },
         {
           icon: 'office-building',
@@ -167,6 +169,7 @@ export default class ProjectDetail extends Vue {
 <style lang="less" scoped>
 .project-detail {
   padding-top: 60px;
+  overflow: hidden;
   .banner {
     height: 500px;
     width: 100%;
@@ -190,7 +193,8 @@ export default class ProjectDetail extends Vue {
       transform: scale(1.3);
     }
     .content {
-      width: 1200px;
+      max-width: 1260px;
+      padding: 0 30px;
       margin: 0 auto;
       height: 100%;
       position: relative;
@@ -199,7 +203,7 @@ export default class ProjectDetail extends Vue {
       align-items: center;
       justify-content: space-between;
       .image {
-        width: 600px;
+        width: 50%;
         height: 300px;
         background-size: cover;
         background-repeat: no-repeat;
@@ -207,8 +211,8 @@ export default class ProjectDetail extends Vue {
         border-radius: 10px;
       }
       .info {
-        width: 600px;
-        padding: 30px 80px;
+        width: 50%;
+        padding: 30px 50px;
 
         .name {
           font-size: 24px;
@@ -224,8 +228,7 @@ export default class ProjectDetail extends Vue {
 
   .detail-body {
     position: relative;
-    width: 1200px;
-    padding: 30px;
+    max-width: 1200px;
     background: #fff;
     box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
     margin: 0 auto;
@@ -287,23 +290,34 @@ export default class ProjectDetail extends Vue {
   }
 }
 @media (max-width: 650px) {
-  .project-content {
-    width: 100%;
-    padding: 150px 0 0 0;
-    .project-image {
-      height: 200px;
-      border-radius: 0;
-    }
-    .project-header {
-      padding: 20px;
-      .title {
-        font-size: 16px;
+  .project-detail {
+    .banner {
+      height: auto;
+      .content {
+        display: block;
+        padding-top: 30px;
+        .image {
+          width: 100%;
+          height: 200px;
+        }
+        .info {
+          width: 100%;
+        }
       }
-      .time {
-        border: none;
-        font-size: 12px;
-        width: auto;
-        padding: 0;
+    }
+    .detail-body {
+      .more-info {
+        display: block;
+        .info-item {
+          width: 100%;
+          padding: 20px 0;
+          .icon,
+          .label {
+            display: inline-block;
+            font-size: 14px;
+            margin-bottom: 10px;
+          }
+        }
       }
     }
   }

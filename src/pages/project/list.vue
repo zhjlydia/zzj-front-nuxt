@@ -99,12 +99,12 @@ export default class Projects extends Vue {
   .list {
     min-height: 300px;
   }
-  .project-item{
-    width:32%;
-    float:left;
-    margin-right:2%;
-    &:nth-child(3n+3){
-      margin-right:0;
+  .project-item {
+    width: 32%;
+    float: left;
+    margin-right: 2%;
+    &:nth-child(3n + 3) {
+      margin-right: 0;
     }
   }
   .more,
@@ -123,6 +123,9 @@ export default class Projects extends Vue {
 }
 @media (max-width: 650px) {
   .project-list {
+    .project-item {
+      width: 100%;
+    }
     .list {
       padding: 20px;
     }

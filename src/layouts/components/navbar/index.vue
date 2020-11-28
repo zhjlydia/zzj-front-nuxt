@@ -10,27 +10,21 @@
     <div class="menu">
       <div
         class="menu-item"
-        :class="{active: item.path === activeMenu}"
+        :class="{ active: item.path === activeMenu }"
         v-for="(item, index) in routes"
         :key="index"
       >
         <router-link :to="item.path">{{ item.title }}</router-link>
       </div>
     </div>
-    <div
-      class="menu-mobile-icon"
-      @click="drawer=true"
-    >
+    <div class="menu-mobile-icon" @click="drawer = true">
       <span class="middle"></span>
     </div>
-    <el-drawer
-      :visible.sync="drawer"
-      direction="rtl"
-    >
+    <el-drawer :visible.sync="drawer" direction="rtl">
       <div class="menu-mobile">
         <div
           class="menu-item"
-          :class="{active: item.path === activeMenu}"
+          :class="{ active: item.path === activeMenu }"
           v-for="(item, index) in routes"
           :key="index"
         >
@@ -43,29 +37,29 @@
 <script lang="ts">
 /** @format */
 
-import {Component, Vue, Prop} from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
 export default class NavBar extends Vue {
   routes: any = [
     {
       path: '/article/list',
-      title: 'articles'
+      title: 'articles',
     },
     {
       path: '/project/list',
-      title: 'projects'
-    }
+      title: 'projects',
+    },
   ]
   drawer: boolean = false
   get activeMenu() {
     const route = this.$route
-    const {meta, path} = route
+    const { meta, path } = route
     return path
   }
   home() {
     this.$router.replace({
-      name: 'Home'
+      name: 'home',
     })
   }
 }
@@ -114,8 +108,8 @@ export default class NavBar extends Vue {
       bottom: 0;
     }
   }
-  .menu{
-    margin-bottom:5px;
+  .menu {
+    margin-bottom: 5px;
   }
   .menu-item {
     height: 25px;
