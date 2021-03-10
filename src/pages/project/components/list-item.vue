@@ -2,28 +2,28 @@
 
 <template>
   <div class="list-item" @click="detail(item.id)">
-      <el-image
-        v-if="item.image"
-        class="image"
-        :src="item.image"
-        fit="cover"
-      ></el-image>
-      <div class="content">
-        <p class="title">{{ item.name }}</p>
-        <tag
+    <el-image
+      v-if="item.image"
+      class="image"
+      :src="item.image"
+      fit="cover"
+    ></el-image>
+    <div class="content">
+      <div class="title">{{ item.name }}</div>
+      <tag
         v-for="(tag, index) in item.tags"
         :key="index"
         :color="getColor(index)"
         >{{ tag.content }}
-        </tag>
-        <div class="time">
-          {{ item.startedAt | formatDate('YYYY-MM-DD') }} 至
-          {{ item.endedAt | formatDate('YYYY-MM-DD') }}
-        </div>
+      </tag>
+      <div class="time">
+        {{ item.startedAt | formatDate('YYYY-MM-DD') }} 至
+        {{ item.endedAt | formatDate('YYYY-MM-DD') }}
       </div>
-      <div class="content2">
-        <div class="description">{{ item.description }}</div>
-      </div>  
+    </div>
+    <div class="content2">
+      <div class="description">{{ item.description }}</div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -35,7 +35,7 @@ import Tag from '@/components/tag.vue'
 import Article from '@/model/article'
 import { formatDate } from '@/utils/filters'
 
-@Component({ components: { Tag } ,filters: { formatDate }})
+@Component({ components: { Tag }, filters: { formatDate } })
 export default class ListItem extends Vue {
   @Prop()
   item: Article
@@ -55,42 +55,47 @@ export default class ListItem extends Vue {
 .list-item {
   color: #fff;
   font-size: 14px;
-  margin-bottom:30px;
+  margin-bottom: 30px;
   border-radius: 10px;
   text-align: center;
   overflow: hidden;
   cursor: pointer;
-  position:relative;
-  height:250px;
-  &:hover{
-    .content2{
+  position: relative;
+  height: 250px;
+  &:hover {
+    .content2 {
       opacity: 1;
       transform: scale(1);
     }
-    .content{
-      opacity:0;
+    .content {
+      opacity: 0;
       transform: translateY(50%);
     }
   }
-  .content,.content2 {
-    background:rgba(0,0,0,0.4);
-    position:absolute;
-    left:15px;
-    top:15px;
-    bottom:15px;
-    right:15px;
-    padding: 120px 10px 0 10px;
+  .content,
+  .content2 {
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    bottom: 15px;
+    right: 15px;
     -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
+    padding: 0 20px;
   }
-  .content{
-    opacity:1;
+  .content {
+    opacity: 1;
+    padding-top: 50px;
   }
-  .content2{
-    opacity:0;
+  .content2 {
+    opacity: 0;
     transform: scale(0.9);
+    display: flex;
+    align-items: center;
   }
   .title {
+    height: 40px;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 15px;
@@ -98,7 +103,7 @@ export default class ListItem extends Vue {
   .time {
     font-size: 10px;
     font-weight: bold;
-    margin-top:10px;
+    margin-top: 10px;
   }
   .image {
     text-align: center;

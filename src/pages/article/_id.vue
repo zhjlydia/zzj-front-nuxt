@@ -7,10 +7,10 @@
         <span class="mar-l-5 mar-r-5">/</span>
         {{ articleDetail.title }}</breadcrumb
       >
-      <div
-        class="article-image"
-        :style="{ 'background-image': 'url(' + articleDetail.image + ')' }"
-      ></div>
+      <div class="article-banner" :style="bannerStyle">
+        <img class="article-image" :src="articleDetail.image" alt="" />
+      </div>
+
       <div class="article-content">
         <div class="detail-body">
           <div class="article-header">
@@ -89,6 +89,21 @@ export default class ArticleDetail extends Vue {
   @article.Action
   resetArticleDetail: ActionMethod
 
+  get bannerStyle() {
+    if (
+      this.articleDetail &&
+      this.articleDetail.config &&
+      this.articleDetail.config.style &&
+      this.articleDetail.config.style.banner
+    ) {
+      return this.articleDetail.config.style.banner
+    }
+    return {
+      background:
+        'linear-gradient( 135deg, rgb(195,44,47) 0%,rgb(61,16,18) 75% )',
+    }
+  }
+
   breadcrumbItem: BreadcrumbItem = {
     routerName: 'article-list',
     name: '文章',
@@ -107,28 +122,33 @@ export default class ArticleDetail extends Vue {
 <style lang="less" scoped>
 .article-detail {
   padding-top: 60px;
-  position: relative;
+  .article-banner {
+    height: 300px;
+    position: relative;
+  }
   .article-image {
-    height: 400px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    width: 450px;
+    height: 250px;
+    object-fit: cover;
+    position: absolute;
+    border-radius: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 90px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
   }
   .article-content {
     max-width: 1200px;
     margin: 0 auto;
     .detail-body {
-      position: relative;
       background: #fff;
       box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
-      margin-top: -150px;
       overflow: hidden;
-      border-radius: 30px;
       border: 1px solid #eee;
     }
     .article-header {
       color: #333;
-      padding: 30px;
+      padding: 80px 30px 20px 30px;
       display: flex;
       background: #fff;
       justify-content: space-between;

@@ -1,5 +1,10 @@
 <template>
   <div class="article-list main">
+    <category-comp
+      :items="categories"
+      :selected="currentCategory"
+      @select="selectCategory"
+    ></category-comp>
     <div class="list">
       <div v-for="(item, index) in articles" :key="index">
         <list-item :item="item" @detail="detail"></list-item>
@@ -7,16 +12,14 @@
           ><i class="el-icon-sunrise"></i
         ></el-divider>
       </div>
+      <loading :show="!articles.length && listLoading"></loading>
     </div>
-    <div v-if="loadListAbled" class="more" @click="more">加载更多</div>
-    <div v-if="listLoading" class="loading">
-      <i class="el-icon-bicycle mar-r-10"></i>加载中...
-    </div>
-    <category-comp
-      :items="categories"
-      :selected="currentCategory"
-      @select="selectCategory"
-    ></category-comp>
+    <template v-if="articles && articles.length">
+      <div v-if="loadListAbled" class="more" @click="more">加载更多</div>
+      <div v-if="listLoading" class="loading">
+        <i class="el-icon-bicycle mar-r-10"></i>加载中...
+      </div>
+    </template>
   </div>
 </template>
 <script lang="ts">
@@ -29,12 +32,13 @@ import Category from '@/model/category'
 
 import { Loading, Catch } from '@/decorators'
 import listItem from './components/list-item.vue'
-import categoryComp from './components/category.vue'
+import categoryComp from '@/components/category.vue'
+import loading from '@/components/loading.vue'
 
 const article = namespace('modules/article')
 
 @Component({
-  components: { listItem, categoryComp },
+  components: { listItem, categoryComp, loading },
   async asyncData({ app, store }) {
     return Promise.all([
       store.dispatch('modules/article/fetchList', true),
@@ -82,7 +86,6 @@ export default class Articles extends Vue {
   }
 
   @Catch
-  @Loading
   async selectCategory(categoryId: number) {
     this.setCurrentCategory(categoryId)
     await this.fetchList(true)
@@ -100,10 +103,11 @@ export default class Articles extends Vue {
   margin: 0 auto;
   min-height: 100vh;
   .list {
-    min-height: 300px;
+    min-height: 600px;
     background: #fff;
     padding: 30px;
     box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
+    position: relative;
   }
   .more,
   .loading {
@@ -112,7 +116,7 @@ export default class Articles extends Vue {
     width: 300px;
     background: #ffe082;
     text-align: center;
-    margin: 10px auto;
+    margin: 20px auto 0 auto;
     border-radius: 20px;
   }
   .more {
@@ -122,7 +126,7 @@ export default class Articles extends Vue {
 @media (max-width: 650px) {
   .article-list {
     .list {
-      padding: 20px;
+      padding: 10px;
     }
     .more,
     .loading {

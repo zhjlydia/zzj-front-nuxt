@@ -62,7 +62,7 @@ export default class Home extends Vue {
 .home {
   width: 100%;
   overflow: hidden;
-  color: #222;
+  color: #5a5a5a;
   .banner {
     width: 140%;
     height: 100vh;
@@ -111,9 +111,9 @@ export default class Home extends Vue {
       text-align: center;
       top: 40px;
       left: 140px;
+      font-weight: 600;
     }
     .tip {
-      font-weight: bold;
       padding: 20px 0;
       font-size: 20px;
       margin: 20px auto 0 auto;
@@ -146,7 +146,7 @@ export default class Home extends Vue {
     font-weight: bold;
   }
   .article {
-    max-width: 1200px;
+    max-width: 1260px;
     margin: 0 auto 50px auto;
   }
 }

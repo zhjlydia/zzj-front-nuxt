@@ -30,7 +30,7 @@ export default class Breadcrumb extends Vue {
   top: 0;
   left: 0;
   right: 0;
-  background: #f5f5f5;
+  background: #f4f4f4;
 
   z-index: 100;
   box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);

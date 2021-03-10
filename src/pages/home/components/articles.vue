@@ -66,7 +66,7 @@ export default class ListItem extends Vue {
     }
   }
   .home-article-item {
-    color: #333;
+    color: #5a5a5a;
     font-size: 14px;
     background: #fff;
     padding: 20px;
@@ -102,7 +102,6 @@ export default class ListItem extends Vue {
     }
     .description {
       margin: 15px 0;
-      color: #757575;
       line-height: 1.5;
       height: 45px;
       display: -webkit-box;

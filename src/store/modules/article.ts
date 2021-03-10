@@ -26,7 +26,6 @@ export const state = (): State => ({
   total: 0,
   listLoading: false,
   articleDetail: null,
-
   categories: [],
   currentCategory: -1,
 })

@@ -2,19 +2,32 @@
 
 <template>
   <div class="navBar">
-    <img
-      class="logo"
-      src="http://cdn.zhouzhoujiang.com/blog/logo4.png"
-      @click="home"
-    />
-    <div class="menu">
-      <div
-        class="menu-item"
-        :class="{ active: item.path === activeMenu }"
-        v-for="(item, index) in routes"
-        :key="index"
-      >
-        <router-link :to="item.path">{{ item.title }}</router-link>
+    <div class="navBar-content">
+      <img
+        class="logo"
+        src="http://cdn.zhouzhoujiang.com/blog/logo-front.png"
+        @click="home"
+      />
+      <div class="menu-wrap">
+        <div class="contact">
+          <span
+            class="icon iconfont"
+            v-for="(item, index) in contacts"
+            :key="index"
+            :class="[item.icon]"
+            @click="goLink(item.url)"
+          ></span>
+        </div>
+        <div class="menu">
+          <div
+            class="menu-item"
+            :class="{ active: item.path === activeMenu }"
+            v-for="(item, index) in routes"
+            :key="index"
+          >
+            <router-link :to="item.path">{{ item.title }}</router-link>
+          </div>
+        </div>
       </div>
     </div>
     <div class="menu-mobile-icon" @click="drawer = true">
@@ -44,18 +57,35 @@ export default class NavBar extends Vue {
   routes: any = [
     {
       path: '/article/list',
-      title: 'articles',
+      title: '文章',
     },
     {
       path: '/project/list',
-      title: 'projects',
+      title: '项目',
     },
   ]
   drawer: boolean = false
+  contacts: any = [
+    {
+      icon: 'icon-github',
+      url: 'https://github.com/zhjlydia',
+    },
+    {
+      icon: 'icon-juejin',
+      url: 'https://juejin.cn/user/4142615541842248',
+    },
+    {
+      icon: 'icon-yuque-fill',
+      url: 'https://www.yuque.com/zhouhuijuan-44lqs',
+    },
+  ]
   get activeMenu() {
     const route = this.$route
     const { meta, path } = route
     return path
+  }
+  goLink(url: string) {
+    window.open(url)
   }
   home() {
     this.$router.replace({
@@ -68,15 +98,33 @@ export default class NavBar extends Vue {
 /** @format */
 
 .navBar {
-  padding: 10px 0 0 0;
+  padding: 30px 0;
   font-size: 26px;
   overflow: hidden;
   z-index: 10;
-  background: #f5f5f5;
-  text-align: center;
+  background: #f4f4f4;
   color: #333;
+  .navBar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    .menu-wrap {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .contact {
+      padding: 0 5px;
+      .icon {
+        width: 20px;
+        height: 20px;
+        margin: 0 5px;
+        color: #666;
+        cursor: pointer;
+      }
+    }
+  }
   .logo {
-    width: 300px;
+    width: 140px;
     height: auto;
     cursor: pointer;
   }
@@ -85,6 +133,7 @@ export default class NavBar extends Vue {
     position: relative;
     width: 20px;
     height: 16px;
+    right: 10px;
     .middle,
     &::before,
     &::after {
@@ -108,16 +157,12 @@ export default class NavBar extends Vue {
       bottom: 0;
     }
   }
-  .menu {
-    margin-bottom: 5px;
-  }
   .menu-item {
     height: 25px;
     line-height: 25px;
-    font-size: 14px;
+    font-size: 16px;
     display: inline-block;
     padding: 0 20px;
-    vertical-align: top;
     position: relative;
     font-weight: bold;
     a {
@@ -141,11 +186,14 @@ export default class NavBar extends Vue {
 }
 @media (max-width: 650px) {
   .navBar {
-    padding: 0 20px;
+    padding: 0 10px;
     height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .contact {
+      display: none;
+    }
     .menu-mobile-icon {
       display: block;
     }

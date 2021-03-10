@@ -1,5 +1,10 @@
 <template>
   <div class="project-list main">
+    <category-comp
+      :items="categories"
+      :selected="currentCategory"
+      @select="selectCategory"
+    ></category-comp>
     <div class="list clearfix">
       <div v-for="(item, index) in projects" :key="index" class="project-item">
         <list-item :item="item" @detail="detail"></list-item>
@@ -9,11 +14,6 @@
     <div v-if="listLoading" class="loading">
       <i class="el-icon-bicycle mar-r-10"></i>加载中...
     </div>
-    <category-comp
-      :items="categories"
-      :selected="currentCategory"
-      @select="selectCategory"
-    ></category-comp>
   </div>
 </template>
 <script lang="ts">
@@ -26,7 +26,7 @@ import Category from '@/model/category'
 
 import { Loading, Catch } from '@/decorators'
 import listItem from './components/list-item.vue'
-import categoryComp from './components/category.vue'
+import categoryComp from '@/components/category.vue'
 
 const project = namespace('modules/project')
 
@@ -98,6 +98,9 @@ export default class Projects extends Vue {
   min-height: 100vh;
   .list {
     min-height: 300px;
+    background: #fff;
+    padding: 30px;
+    box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
   }
   .project-item {
     width: 32%;
@@ -114,7 +117,7 @@ export default class Projects extends Vue {
     width: 300px;
     background: #ffe082;
     text-align: center;
-    margin: 10px auto;
+    margin: 20px auto 0 auto;
     border-radius: 20px;
   }
   .more {

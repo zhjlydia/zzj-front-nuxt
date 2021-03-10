@@ -11,7 +11,7 @@
 <script lang="ts">
 /** @format */
 
-import {Component, Vue, Prop} from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
 export default class FooterBar extends Vue {}
@@ -21,9 +21,10 @@ export default class FooterBar extends Vue {}
 
 .copyright {
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   padding: 20px 0;
-  background: #f5f5f5;
+  background: #f4f4f4;
+  color: #666;
   box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
   .record {
     margin-top: 10px;

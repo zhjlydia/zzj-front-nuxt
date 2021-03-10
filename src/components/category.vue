@@ -4,7 +4,7 @@
       v-for="(item, index) in items"
       :key="index"
       class="category-item"
-      :class="{selected: item.id === selected}"
+      :class="{ selected: item.id === selected }"
       @click="select(item.id)"
     >
       {{ item.title }}
@@ -31,29 +31,25 @@ export default class CategoryComp extends Vue {
 </script>
 <style lang="less" scoped>
 .category-list {
-  position: fixed;
+  display: flex;
   background: #fff;
-  border-radius: 10px;
-  top: 200px;
-  margin-left: -100px;
-  padding: 10px;
   .category-item {
     border-radius: 10px;
     height: 20px;
     line-height: 20px;
     cursor: pointer;
-    margin: 10px 0;
+    margin: 10px;
     position: relative;
     padding: 0 10px;
     &.selected {
       &:before {
         content: '';
         position: absolute;
-        width: 3px;
+        width: 5px;
         border-radius: 3px;
         left: 0;
-        top: 2px;
-        bottom: 2px;
+        top: 6px;
+        bottom: 6px;
         background: #ffe082;
       }
     }

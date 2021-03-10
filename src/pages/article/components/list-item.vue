@@ -51,13 +51,13 @@ export default class ListItem extends Vue {
 <style lang="less" scoped>
 /** @format */
 .list-item {
-  color: #333;
+  color: #5a5a5a;
   font-size: 14px;
   background: #fff;
   display: flex;
   cursor: pointer;
   .item-main {
-    padding: 10px;
+    padding: 20px;
     flex: 1 0;
   }
   .title {
@@ -68,9 +68,8 @@ export default class ListItem extends Vue {
   }
   .description {
     margin: 15px 0;
-    color: #757575;
     line-height: 1.5;
-    height: 45px;
+    height: 40px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -84,9 +83,7 @@ export default class ListItem extends Vue {
     margin-top: 10px;
   }
   .image-wrap {
-    flex: 0 0 25%;
-    width: 25%;
-    height: 50%;
+    flex: 0 0 30%;
     -webkit-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
     padding: 10px;
@@ -94,6 +91,7 @@ export default class ListItem extends Vue {
   .image {
     text-align: center;
     border-radius: 10px;
+    box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.06);
     width: 100%;
     height: 100%;
   }

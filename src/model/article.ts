@@ -4,12 +4,17 @@ import User from './user'
 import Category from './category'
 import Tag from './tag'
 
+export interface ArticleConfig {
+  style: Record<string, string>
+}
+
 class Article {
   id: number
   title: string
   description: string
-  image:string
+  image: string
   content: string
+  config: ArticleConfig | null
   createdAt: string
   updatedAt?: string
   author?: User
@@ -21,11 +26,18 @@ class Article {
     this.image = data.image
     this.description = data.description
     this.content = data.content
+    this.config = null
+    if (data.config) {
+      try {
+        let config = JSON.parse(data.config)
+        this.config = config
+      } catch (e) {}
+    }
     this.createdAt = dayjs(data.createdAt).format('YYYY-MM-DD')
     this.updatedAt = dayjs(data.updatedAt).format('YYYY-MM-DD')
     this.author = new User(data.author)
     this.category = new Category(data.category)
-    this.tags = data.tags.map(item => {
+    this.tags = data.tags.map((item) => {
       return new Tag(item)
     })
   }
@@ -38,6 +50,7 @@ namespace Article {
     image: string
     description: string
     content: string
+    config: string
     createdAt: Date
     updatedAt: Date
     author: User.RawData
