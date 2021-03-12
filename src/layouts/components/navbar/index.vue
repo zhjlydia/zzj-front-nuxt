@@ -127,6 +127,7 @@ export default class NavBar extends Vue {
     width: 140px;
     height: auto;
     cursor: pointer;
+    vertical-align: middle;
   }
   .menu-mobile-icon {
     display: none;
@@ -191,17 +192,17 @@ export default class NavBar extends Vue {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .contact {
-      display: none;
+    .navBar-content {
+      .menu-wrap {
+        display: none;
+      }
     }
+
     .menu-mobile-icon {
       display: block;
     }
-    .menu {
-      display: none;
-    }
     .logo {
-      width: 150px;
+      width: 100px;
     }
   }
 }

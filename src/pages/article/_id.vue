@@ -178,11 +178,19 @@ export default class ArticleDetail extends Vue {
 }
 @media (max-width: 650px) {
   .article-detail {
+    .article-banner {
+      height: 250px;
+    }
+    .article-image {
+      width: 250px;
+      height: 150px;
+      top: 50%;
+      margin-top: -75px;
+    }
     .article-content {
       width: 100%;
-      .article-image {
-        height: 200px;
-        border-radius: 0;
+      .content {
+        padding: 20px;
       }
       .article-header {
         padding: 20px;

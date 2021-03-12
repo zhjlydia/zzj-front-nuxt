@@ -34,7 +34,6 @@ export default class CategoryComp extends Vue {
   display: flex;
   background: #fff;
   .category-item {
-    border-radius: 10px;
     height: 20px;
     line-height: 20px;
     cursor: pointer;
@@ -53,6 +52,11 @@ export default class CategoryComp extends Vue {
         background: #ffe082;
       }
     }
+  }
+}
+@media (max-width: 650px) {
+  .category-list {
+    display: none;
   }
 }
 </style>
