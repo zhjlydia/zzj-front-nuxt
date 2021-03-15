@@ -302,6 +302,12 @@ export default class ProjectDetail extends Vue {
         }
         .info {
           width: 100%;
+          .name {
+            font-size: 18px;
+          }
+          .description {
+            font-size: 14px;
+          }
         }
       }
     }

@@ -202,7 +202,7 @@ export default class NavBar extends Vue {
       display: block;
     }
     .logo {
-      width: 100px;
+      width: 85px;
     }
   }
 }

@@ -2,7 +2,7 @@
   <div class="breadcrumb-wrap">
     <div class="breadcrumb">
       <div class="breadcrumb-item" @click="redirect">{{ item.name }}</div>
-      <slot />
+      <div class="breadcrumb-title"><slot /></div>
     </div>
   </div>
 </template>
@@ -39,16 +39,25 @@ export default class Breadcrumb extends Vue {
     margin: 0 auto;
     padding: 0 20px;
     height: 100%;
+    display: flex;
+    align-items: center;
   }
   .breadcrumb-item {
     background: #ffe082;
-    padding: 0 10px;
+    text-align: center;
     height: 30px;
     line-height: 30px;
-    display: inline-block;
     border-radius: 8px;
     margin-right: 5px;
     cursor: pointer;
+    width: 60px;
+  }
+  .breadcrumb-title {
+    height: 60px;
+    line-height: 60px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 @media (max-width: 650px) {
