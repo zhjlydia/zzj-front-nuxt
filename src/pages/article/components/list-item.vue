@@ -99,11 +99,14 @@ export default class ListItem extends Vue {
 @media (max-width: 650px) {
   .list-item {
     align-items: center;
+    .item-main {
+      padding: 10px;
+    }
     .title {
       margin-bottom: 10px;
     }
     .image-wrap {
-      padding: 5px;
+      padding: 0;
     }
     .description {
       margin: 10px 0;

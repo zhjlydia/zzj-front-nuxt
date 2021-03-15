@@ -2,9 +2,9 @@
   <div class="article-detail">
     <template v-if="articleDetail">
       <breadcrumb :item="breadcrumbItem">
-        <span class="mar-l-5 mar-r-5">/</span>
+        <span class="breadcrumb-slider">/</span>
         {{ articleDetail.category.title }}
-        <span class="mar-l-5 mar-r-5">/</span>
+        <span class="breadcrumb-slider">/</span>
         {{ articleDetail.title }}</breadcrumb
       >
       <div class="article-banner" :style="bannerStyle">
@@ -122,6 +122,9 @@ export default class ArticleDetail extends Vue {
 <style lang="less" scoped>
 .article-detail {
   padding-top: 60px;
+  .breadcrumb-slider {
+    margin: 0 5px;
+  }
   .article-banner {
     height: 300px;
     position: relative;
@@ -178,6 +181,9 @@ export default class ArticleDetail extends Vue {
 }
 @media (max-width: 650px) {
   .article-detail {
+    .breadcrumb-slider {
+      margin: 0 2px;
+    }
     .article-banner {
       height: 250px;
     }
