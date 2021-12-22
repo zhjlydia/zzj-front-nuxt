@@ -1,4 +1,5 @@
 # blog-nuxt
+#  预览地址：http://zhouzhoujiang.com/
 
 ## Build Setup
 
